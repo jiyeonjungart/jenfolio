@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jenny Jung’s interactive 3D airport scene.">
+  <title>Jenny Jung | Interactive 3D scene</title>
+  <style>
+    :root { color-scheme: dark; background: #131313; }
+    body { margin: 0; font: 14px system-ui, sans-serif; }
+    main { position: fixed; inset: 0; display: grid; place-items: center; overflow: hidden; }
+    #stage {
+      position: absolute; top: 50%; left: 50%; width: 730px; height: 580px;
+      transform: translate(-50%, -50%) scale(var(--fit, 1)); overflow: hidden;
+    }
+    #viewport { position: absolute; left: -62px; top: 0; width: 792px; height: 580px; }
+    #canvas3d { display: block; width: 100%; height: 100%; opacity: 0; }
+    #stage[data-state="live"] #canvas3d { opacity: 1; }
+    #poster { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
+    #stage[data-state="live"] #poster { display: none; }
+    #replay {
+      position: absolute; right: 16px; bottom: max(16px, env(safe-area-inset-bottom));
+      border: 1px solid #555; border-radius: 6px; background: #191919;
+      color: #eee; padding: 8px 12px; font: inherit; cursor: pointer;
+    }
+    #status {
+      position: absolute; bottom: max(16px, env(safe-area-inset-bottom));
+      margin: 0; padding: 6px 12px; color: #ddd; text-align: center;
+      background: #131313; border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <main aria-label="Jenny Jung, Product Designer">
+    <div id="stage">
+      <div id="viewport">
+        <canvas id="canvas3d" aria-label="Interactive 3D airport scene. Move your pointer to turn the character’s head."></canvas>
+      </div>
+      <img id="poster" src="./poster.webp" alt="Jenny Jung’s airport scene with a blue hello, a traveler with a yellow suitcase, and a NYC to PHL departure board.">
+    </div>
+    <button id="replay" type="button" hidden>Replay animation</button>
+    <p id="status" role="status">The interactive player has not started.</p>
+  </main>
+  <script type="module" src="./player.js"></script>
+</body>
+</html>
